@@ -1,0 +1,963 @@
+/* ==============================
+   ESTILOS GENERALES
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+}
+
+
+/* ==============================
+   HERO
+============================== */
+
+.hero {
+    min-height: 100vh;
+    padding: 100px 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #222 0%,
+            #111 60%
+        );
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+}
+
+
+/* Subtítulo */
+
+.hero-subtitle {
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+
+    opacity: 0;
+
+    animation:
+        heroAppear 1s ease 0.2s both;
+}
+
+
+/* Título */
+
+.hero h1 {
+    font-size: clamp(50px, 8vw, 100px);
+    line-height: 1;
+
+    margin-bottom: 25px;
+
+    font-weight: 700;
+    letter-spacing: -3px;
+
+    opacity: 0;
+
+    animation:
+        heroAppear 1s ease 0.4s both;
+}
+
+
+/* Descripción */
+
+.hero-description {
+    font-size: 20px;
+    color: #aaa;
+    margin-bottom: 35px;
+
+    opacity: 0;
+
+    animation:
+        heroAppear 1s ease 0.6s both;
+}
+
+
+/* ==============================
+   BOTÓN HERO
+============================== */
+
+.hero-button {
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    background-color: white;
+    color: #111;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    opacity: 0;
+
+    animation:
+        heroButtonAppear 1s ease 0.8s both;
+
+    transition:
+        background-color 0.4s ease,
+        transform 0.4s ease;
+}
+
+.hero-button:hover {
+    background-color: #ddd;
+    transform: translateY(-5px);
+}
+
+
+/* ==============================
+   ANIMACIONES HERO
+============================== */
+
+@keyframes heroAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes heroButtonAppear {
+
+    from {
+        opacity: 0;
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+
+}
+
+
+
+/* ==============================
+   SOBRE MÍ
+============================== */
+
+.about {
+    min-height: 100vh;
+
+    padding: 120px 8%;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    align-items: center;
+
+    gap: 80px;
+}
+
+
+/* Contenedor de imagen */
+
+.about-image img {
+    width: 100%;
+    max-width: 350px;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 0 0 15px rgba(255, 255, 255, 0.02),
+        0 20px 60px rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+
+    transform: translateX(-30px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        box-shadow 0.5s ease;
+}
+.about-image img.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Hover de la foto */
+
+.about-image img:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 0 0 18px rgba(255, 255, 255, 0.025),
+        0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Contenido */
+
+.about-content {
+    max-width: 600px;
+
+    opacity: 0;
+
+    transform: translateX(30px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+.about-content.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* Subtítulo de sección */
+
+.section-subtitle {
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    color: #aaa;
+
+    margin-bottom: 20px;
+}
+
+
+/* Título */
+
+.about-content h2 {
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1.05;
+
+    margin-bottom: 30px;
+
+    letter-spacing: -2px;
+}
+
+
+/* Párrafos */
+
+.about-content p {
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #aaa;
+
+    margin-bottom: 20px;
+}
+.about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+.about-skills span {
+    padding: 10px 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.about-skills span:hover {
+    color: white;
+
+    background-color: rgba(255, 255, 255, 0.08);
+
+    border-color: rgba(255, 255, 255, 0.3);
+
+    transform: translateY(-3px);
+}
+/* ==============================
+   SKILLS
+============================== */
+
+.skills {
+    min-height: 100vh;
+    padding: 120px 8%;
+}
+
+.skills-header {
+    max-width: 700px;
+    margin-bottom: 60px;
+}
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.skill {
+    padding: 35px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+}
+.skill:hover {
+    transform: translateY(-5px);
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.skill-number {
+    display: block;
+
+    margin-bottom: 30px;
+
+    color: #666;
+
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.skill h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.skill p {
+    color: #999;
+    line-height: 1.6;
+}
+/* ==============================
+   PROJECTS
+============================== */
+
+.projects {
+    min-height: 100vh;
+    padding: 120px 8%;
+}
+
+.projects-header {
+    max-width: 700px;
+    margin-bottom: 60px;
+}
+
+.projects-header h2 {
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.projects-header p {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.7;
+}
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+.project {
+    background: rgba(255, 255, 255, 0.03);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+}
+.project:hover {
+    transform: translateY(-6px);
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #292929 0%,
+            #171717 70%
+        );
+
+    overflow: hidden;
+}
+.project-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+.project:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-image span {
+    color: #666;
+
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+.project-info {
+    padding: 25px;
+}
+
+.project-category {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.project-info h3 {
+    font-size: 26px;
+    margin-bottom: 12px;
+}
+
+.project-info p {
+    color: #999;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+.project-link {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: #aaa;
+}
+/* ==============================
+   CONTACTO
+============================== */
+
+.contact {
+    min-height: 100vh;
+    padding: 120px 8%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+
+    align-items: center;
+}
+
+.contact-header {
+    max-width: 600px;
+}
+
+.contact-header h2 {
+    font-size: clamp(40px, 5vw, 65px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 25px;
+}
+
+.contact-header > p:last-child {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
+/* Formulario */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 15px 18px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+
+/* Botón */
+
+.contact-button {
+    width: fit-content;
+
+    padding: 15px 30px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: white;
+    color: #111;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.contact-button:hover {
+    background: #ddd;
+    transform: translateY(-4px);
+}
+.form-message {
+    min-height: 24px;
+    color: #aaa;
+    font-size: 14px;
+}
+/* ==============================
+   NAVEGACIÓN
+============================== */
+
+.header {
+    position: fixed;
+
+    top: 15px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: calc(100% - 30px);
+
+    max-width: 1200px;
+
+    z-index: 1000;
+}
+
+.navbar {
+    width: 100%;
+
+    padding: 15px 30px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 50px;
+}
+
+
+/* Logo */
+
+.logo {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+/* Enlaces */
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+
+    list-style: none;
+
+    position: absolute;
+
+    top: 0;
+    right: 30px;
+
+    height: 100%;
+}
+
+.nav-links a {
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+
+/* ==============================
+   BOTÓN MENÚ
+============================== */
+
+.menu-toggle {
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 768px) {
+
+    /* Hero */
+
+    .hero {
+        padding: 140px 20px 80px;
+    }
+
+
+    /* Navbar */
+
+    .navbar {
+        padding: 15px 20px;
+
+        position: relative;
+    }
+
+
+    /* Menú móvil */
+
+    .nav-links {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 20px;
+
+        position: absolute;
+
+        top: calc(100% + 10px);
+
+        left: 0;
+        right: 0;
+
+        height: auto;
+
+        padding: 25px 30px;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+
+        border-radius: 25px;
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transform: translateY(-10px);
+
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+
+    /* Enlaces móviles */
+
+    .nav-links a {
+        font-size: 16px;
+    }
+
+
+    /* Menú abierto */
+
+    .nav-links.active {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translateY(0);
+
+        pointer-events: auto;
+    }
+
+
+    /* Botón hamburguesa */
+
+    .menu-toggle {
+        display: block;
+
+        position: absolute;
+
+        right: 20px;
+    }
+
+
+    /* ==============================
+       ABOUT MÓVIL
+    ============================== */
+
+    .about {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+
+        padding: 100px 20px;
+
+        text-align: center;
+    }
+
+
+    .about-image {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .about-image img {
+        max-width: 280px;
+    }
+
+
+    .about-content {
+        max-width: 100%;
+    }
+
+
+    .about-content h2 {
+        font-size: 40px;
+    }
+
+    .skills {
+    padding: 100px 20px;
+}
+
+.skills-header {
+    margin-bottom: 40px;
+}
+
+.skills-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+.skill {
+    padding: 16px 18px;
+}
+.skill-number {
+    margin-bottom: 5px;
+    font-size: 9px;
+}
+.skill h3 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.skill p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+.projects {
+    padding: 100px 20px;
+}
+
+.projects-header {
+    margin-bottom: 40px;
+}
+
+.projects-header h2 {
+    font-size: 40px;
+}
+
+.projects-header p {
+    font-size: 16px;
+}
+
+.projects-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    font-size: 24px;
+}
+
+.project-info p {
+    font-size: 14px;
+}
+.contact {
+    grid-template-columns: 1fr;
+    gap: 50px;
+
+    padding: 100px 20px;
+
+    text-align: center;
+}
+
+.contact-header {
+    max-width: 100%;
+}
+
+.contact-header h2 {
+    font-size: 40px;
+}
+
+.contact-header > p:last-child {
+    font-size: 16px;
+}
+
+.contact-form {
+    text-align: left;
+}
+
+.contact-button {
+    width: 100%;
+}
+}
