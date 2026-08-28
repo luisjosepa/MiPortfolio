@@ -1,347 +1,587 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/style.css">
+
     <title>MiPortfolio</title>
-
 </head>
+
 <body>
-    
+
+    <!-- ==============================
+         NAVEGACIÓN
+    ============================== -->
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a href="#" class="logo">LUIS</a>
+
+            <button
+                type="button"
+                class="menu-toggle"
+            >
+                ☰
+            </button>
+
+        </nav>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#about">Sobre mí</a>
+            </li>
+
+            <li>
+                <a href="#skills">Habilidades</a>
+            </li>
+
+            <li>
+                <a href="#projects">Proyectos</a>
+            </li>
+
+            <li>
+                <a href="#contact">Contacto</a>
+            </li>
+
+        </ul>
+
+    </header>
 
 
-<header class="header">
-
-    <nav class="navbar">
-
-        <a href="#" class="logo">LUIS</a>
-
-        <button class="menu-toggle">☰</button>
-
-    </nav>
-
-    <ul class="nav-links">
-        <li><a href="#about">Sobre mí</a></li>
-        <li><a href="#skills">Habilidades</a></li>
-        <li><a href="#projects">Proyectos</a></li>
-        <li><a href="#contact">Contacto</a></li>
-    </ul>
-
-</header>
-
+    <!-- ==============================
+         CONTENIDO PRINCIPAL
+    ============================== -->
 
     <main>
 
+        <!-- ==============================
+             HERO
+        ============================== -->
+
         <section class="hero" id="home">
 
-            <div class="hero-content">
-                <p class="hero-subtitle">DISEÑADOR & DESARROLLADOR WEB</p>
+            <!-- Efectos de fondo -->
 
-                <h1>Hola, soy Luis.</h1>
+            <div
+                class="hero-effects"
+                aria-hidden="true"
+            >
+
+                <div class="hero-glow"></div>
+
+                <div class="hero-particles"></div>
+
+            </div>
+
+
+            <!-- Contenido -->
+
+            <div class="hero-content">
+
+                <p class="hero-subtitle">
+                    DISEÑADOR & DESARROLLADOR WEB
+                </p>
+
+                <h1>
+                    Hola, soy Luis.
+                </h1>
 
                 <p class="hero-description">
                     Creo experiencias digitales modernas y funcionales.
                 </p>
 
-                <a href="#projects" class="hero-button">
-                    Ver mis proyectos
-                </a>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#projects"
+                        class="hero-button"
+                    >
+                        Ver mis proyectos
+                    </a>
+
+                    <a
+                        href="#contact"
+                        class="hero-button hero-button-outline"
+                    >
+                        Contactarme
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Indicador de scroll -->
+
+            <div class="scroll-indicator">
+
+                <span>
+                    SCROLL
+                </span>
+
+                <span class="scroll-arrow">
+                    ↓
+                </span>
+
             </div>
 
         </section>
 
 
-      <section class="about" id="about">
+        <!-- ==============================
+             SOBRE MÍ
+        ============================== -->
 
-    <div class="about-image">
-        <img src="images/profile.jpg" alt="Foto de Luis">
-    </div>
+        <section class="about" id="about">
 
-    <div class="about-content">
+            <div class="about-image">
 
-        <p class="section-subtitle">SOBRE MÍ</p>
+                <img
+                    src="images/profile.jpg"
+                    alt="Foto de Luis"
+                >
 
-        <h2>Diseñador gráfico y desarrollador web.</h2>
-
-        <p>
-            Soy diseñador gráfico y desarrollador web en formación,
-            apasionado por crear experiencias digitales modernas,
-            funcionales y visualmente atractivas.
-        </p>
-
-        <p>
-            Actualmente estoy ampliando mis conocimientos en HTML,
-            CSS y JavaScript para convertir ideas en sitios web reales.
-        </p>
-
-            <div class="about-skills">
-
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>Photoshop</span>
-        <span>Illustrator</span>
-
-    </div>
-
-    </div>
-
-</section>
+            </div>
 
 
-       <section class="skills" id="skills">
+            <div class="about-content">
 
-    <div class="skills-header">
+                <p class="section-subtitle">
+                    SOBRE MÍ
+                </p>
 
-        <p class="section-subtitle">MIS HABILIDADES</p>
+                <h2>
+                    Diseñador gráfico y desarrollador web.
+                </h2>
 
-        <h2>Herramientas que utilizo para crear.</h2>
+                <p>
+                    Soy diseñador gráfico y desarrollador web en formación,
+                    apasionado por crear experiencias digitales modernas,
+                    funcionales y visualmente atractivas.
+                </p>
 
-    </div>
+                <p>
+                    Actualmente estoy ampliando mis conocimientos en HTML,
+                    CSS y JavaScript para convertir ideas en sitios web reales.
+                </p>
 
-    <div class="skills-container">
 
-        <article class="skill">
-            <span class="skill-number">01</span>
-            <h3>HTML</h3>
-            <p>
-                Estructura semántica y organización
-                del contenido web.
-            </p>
-        </article>
+                <div class="about-skills">
 
-        <article class="skill">
-            <span class="skill-number">02</span>
-            <h3>CSS</h3>
-            <p>
-                Diseño, layouts, animaciones y
-                responsive design.
-            </p>
-        </article>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Photoshop</span>
+                    <span>Illustrator</span>
 
-        <article class="skill">
-            <span class="skill-number">03</span>
-            <h3>JavaScript</h3>
-            <p>
-                Interactividad y funcionalidades
-                para sitios web.
-            </p>
-        </article>
+                </div>
 
-        <article class="skill">
-            <span class="skill-number">04</span>
-            <h3>Photoshop</h3>
-            <p>
-                Edición y composición de imágenes
-                para proyectos digitales.
-            </p>
-        </article>
+            </div>
 
-        <article class="skill">
-            <span class="skill-number">05</span>
-            <h3>Illustrator</h3>
-            <p>
-                Diseño vectorial, branding y
-                creación de identidad visual.
-            </p>
-        </article>
+        </section>
 
-        <article class="skill">
-            <span class="skill-number">06</span>
-            <h3>Diseño</h3>
-            <p>
-                Dirección visual, composición,
-                tipografía y creatividad.
-            </p>
-        </article>
 
-    </div>
+        <!-- ==============================
+             SKILLS
+        ============================== -->
 
-</section>
+        <section class="skills" id="skills">
 
-</section>
+            <div class="skills-header">
 
+                <p class="section-subtitle">
+                    MIS HABILIDADES
+                </p>
+
+                <h2>
+                    Herramientas que utilizo para crear.
+                </h2>
+
+            </div>
+
+
+            <div class="skills-container">
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        01
+                    </span>
+
+                    <h3>
+                        HTML
+                    </h3>
+
+                    <p>
+                        Estructura semántica y organización
+                        del contenido web.
+                    </p>
+
+                </article>
+
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        02
+                    </span>
+
+                    <h3>
+                        CSS
+                    </h3>
+
+                    <p>
+                        Diseño, layouts, animaciones y
+                        responsive design.
+                    </p>
+
+                </article>
+
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        03
+                    </span>
+
+                    <h3>
+                        JavaScript
+                    </h3>
+
+                    <p>
+                        Interactividad y funcionalidades
+                        para sitios web.
+                    </p>
+
+                </article>
+
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        04
+                    </span>
+
+                    <h3>
+                        Photoshop
+                    </h3>
+
+                    <p>
+                        Edición y composición de imágenes
+                        para proyectos digitales.
+                    </p>
+
+                </article>
+
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        05
+                    </span>
+
+                    <h3>
+                        Illustrator
+                    </h3>
+
+                    <p>
+                        Diseño vectorial, branding y
+                        creación de identidad visual.
+                    </p>
+
+                </article>
+
+
+                <article class="skill">
+
+                    <span class="skill-number">
+                        06
+                    </span>
+
+                    <h3>
+                        Diseño
+                    </h3>
+
+                    <p>
+                        Dirección visual, composición,
+                        tipografía y creatividad.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             PROJECTS
+        ============================== -->
 
         <section class="projects" id="projects">
 
-    <div class="projects-header">
+            <div class="projects-header">
 
-        <p class="section-subtitle">MI TRABAJO</p>
-
-        <h2>Proyectos seleccionados.</h2>
-
-        <p>
-            Una selección de proyectos de diseño y desarrollo
-            que representan mi forma de trabajar.
-        </p>
-
-    </div>
-
-
-    <div class="projects-container">
-
-        <article class="project">
-
-            <div class="project-image">
-               <img src="images/project-01.png" alt="Proyecto de diseño web">
-            </div>
-
-            <div class="project-info">
-
-                <span class="project-category">
-                    Diseño web
-                </span>
-
-                <h3>Proyecto One</h3>
-
-                <p>
-                    Diseño y desarrollo de una experiencia web
-                    moderna y funcional.
+                <p class="section-subtitle">
+                    MI TRABAJO
                 </p>
 
-                <a href="https://www.behance.net/" class="project-link" target="_blank">
-                        Ver proyecto →
-                </a>
-
-            </div>
-
-        </article>
-
-
-        <article class="project">
-
-            <div class="project-image">
-                <img src="images/project-02.jpeg" alt="Proyecto de branding">
-           </div>
-
-            <div class="project-info">
-
-                <span class="project-category">
-                    Branding
-                </span>
-
-                <h3>Proyecto Two</h3>
+                <h2>
+                    Proyectos seleccionados.
+                </h2>
 
                 <p>
-                    Desarrollo de identidad visual y
-                    aplicaciones gráficas para una marca.
+                    Una selección de proyectos de diseño y desarrollo
+                    que representan mi forma de trabajar.
                 </p>
-
-                <a href="#" class="project-link">
-                    Ver proyecto →
-                </a>
 
             </div>
 
-        </article>
+
+            <div class="projects-container">
 
 
-        <article class="project">
+                <!-- Proyecto 1 -->
 
-            <div class="project-image">
-                  <img src="images/project-03.png" alt="Proyecto de social media">
-            </div>>
+                <article class="project">
 
-            <div class="project-info">
+                    <div class="project-image">
 
-                <span class="project-category">
-                    Social Media
-                </span>
+                        <img
+                            src="images/project-01.png"
+                            alt="Proyecto de diseño web"
+                        >
 
-                <h3>Proyecto Three</h3>
+                    </div>
 
-                <p>
-                    Diseño de contenido visual y piezas
-                    digitales para comunicación de marca.
-                </p>
 
-                <a href="#" class="project-link">
-                    Ver proyecto →
-                </a>
+                    <div class="project-info">
+
+                        <span class="project-category">
+                            Diseño web
+                        </span>
+
+                        <h3>
+                            Proyecto One
+                        </h3>
+
+                        <p>
+                            Diseño y desarrollo de una experiencia web
+                            moderna y funcional.
+                        </p>
+
+                        <a
+                            href="https://www.behance.net/"
+                            class="project-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Ver proyecto →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Proyecto 2 -->
+
+                <article class="project">
+
+                    <div class="project-image">
+
+                        <img
+                            src="images/project-02.jpeg"
+                            alt="Proyecto de branding"
+                        >
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <span class="project-category">
+                            Branding
+                        </span>
+
+                        <h3>
+                            Proyecto Two
+                        </h3>
+
+                        <p>
+                            Desarrollo de identidad visual y
+                            aplicaciones gráficas para una marca.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="project-link"
+                        >
+                            Ver proyecto →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Proyecto 3 -->
+
+                <article class="project">
+
+                    <div class="project-image">
+
+                        <img
+                            src="images/project-03.png"
+                            alt="Proyecto de social media"
+                        >
+
+                    </div>
+
+
+                    <div class="project-info">
+
+                        <span class="project-category">
+                            Social Media
+                        </span>
+
+                        <h3>
+                            Proyecto Three
+                        </h3>
+
+                        <p>
+                            Diseño de contenido visual y piezas
+                            digitales para comunicación de marca.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="project-link"
+                        >
+                            Ver proyecto →
+                        </a>
+
+                    </div>
+
+                </article>
 
             </div>
 
-        </article>
+        </section>
 
-    </div>
 
-</section>
-
+        <!-- ==============================
+             CONTACTO
+        ============================== -->
 
         <section class="contact" id="contact">
 
-    <div class="contact-header">
+            <div class="contact-header">
 
-        <p class="section-subtitle">CONTACTO</p>
+                <p class="section-subtitle">
+                    CONTACTO
+                </p>
 
-        <h2>¿Tienes un proyecto en mente?</h2>
+                <h2>
+                    ¿Tienes un proyecto en mente?
+                </h2>
 
-        <p>
-            Cuéntame sobre tu idea y hablemos de cómo
-            podemos convertirla en algo real.
-        </p>
+                <p>
+                    Cuéntame sobre tu idea y hablemos de cómo
+                    podemos convertirla en algo real.
+                </p>
 
-    </div>
-
-
-    <form class="contact-form">
-
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Tu nombre"
-            >
-        </div>
+            </div>
 
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="tu@email.com"
-            >
-        </div>
+            <form class="contact-form">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Nombre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Tu nombre"
+                    >
+
+                </div>
 
 
-        <div class="form-group">
-            <label for="message">Mensaje</label>
-            <textarea
-                id="message"
-                name="message"
-                rows="6"
-                placeholder="Cuéntame sobre tu proyecto..."
-            ></textarea>
-        </div>
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="tu@email.com"
+                    >
+
+                </div>
 
 
-        <button type="submit" class="contact-button">
-            Enviar mensaje
-        </button>
-        <p class="form-message"></p>
+                <div class="form-group">
 
-    </form>
+                    <label for="message">
+                        Mensaje
+                    </label>
 
-</section>
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="6"
+                        placeholder="Cuéntame sobre tu proyecto..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="contact-button"
+                >
+                    Enviar mensaje
+                </button>
+
+                <p class="form-message"></p>
+
+            </form>
+
+        </section>
 
     </main>
 
 
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
     <footer class="footer">
-        <p>© 2026 Luis. Todos los derechos reservados.</p>
+
+        <p>
+            © 2026 Luis. Todos los derechos reservados.
+        </p>
+
     </footer>
 
 
     <script src="js/script.js"></script>
 
-    
-
 </body>
-
 
 </html>
