@@ -14,171 +14,170 @@ const header =
 const heroSection =
     document.querySelector(".hero");
 
-const NAVBAR_DURATION = 1450;
+
+/* ==============================
+   CONFIGURACIÓN NAVBAR
+============================== */
+
+const NAVBAR_DURATION = 1400;
+const LINKS_DURATION = 450;
 
 let navbarTimer = null;
-let navbarAnimating = false;
+let linksTimer = null;
 
 
 /* ==============================
-   LINKS
+   ABRIR NAVBAR
 ============================== */
 
-function hideNavbarLinks() {
-    navLinks.classList.remove("links-visible");
-}
-
-function showNavbarLinks() {
-    navLinks.classList.add("links-visible");
-}
-
-
-/* ==============================
-   ABRIR DESDE LA CÁPSULA
-============================== */
-
-function openCompactNavbar() {
+function openNavbar(fromHome = false) {
 
     clearTimeout(navbarTimer);
-
-    navbarAnimating = true;
-
-    header.classList.add("compact");
-    header.classList.add("expanded");
-
-    hideNavbarLinks();
-
-    menuToggle.textContent = "←";
-}
+    clearTimeout(linksTimer);
 
 
-/* ==============================
-   CERRAR DESDE LA CÁPSULA ABIERTA
-============================== */
+    /*
+     * Mientras la barra crece,
+     * los links permanecen ocultos.
+     */
 
-function closeCompactNavbar() {
+    header.classList.remove(
+        "links-visible"
+    );
 
-    clearTimeout(navbarTimer);
+    header.classList.add(
+        "expanded"
+    );
 
-    navbarAnimating = true;
-
-    hideNavbarLinks();
-
-    header.classList.remove("expanded");
-    header.classList.add("compact");
-
-    menuToggle.textContent = "→";
-}
-
-
-/* ==============================
-   TRANSICIÓN DE LA BARRA
-============================== */
-
-const navbarElement =
-    document.querySelector(".navbar");
-
-
-navbarElement.addEventListener(
-    "transitionend",
-    function(event) {
-
-        if (event.propertyName !== "width") {
-            return;
-        }
-
-        if (!header.classList.contains("compact")) {
-            return;
-        }
-
-        if (header.classList.contains("expanded")) {
-
-            showNavbarLinks();
-
-            navbarAnimating = false;
-
-            return;
-        }
-
-        navbarAnimating = false;
-
-    }
-);
-
-
-/* ==============================
-   VOLVER AL INICIO
-============================== */
-
-function openNavbarAtHome() {
-
-    clearTimeout(navbarTimer);
-
-    navbarAnimating = true;
-
-    header.classList.add("compact");
-    header.classList.add("expanded");
-
-    hideNavbarLinks();
 
     menuToggle.textContent = "←";
 
-    const finishHome = function(event) {
 
-        if (event.propertyName !== "width") {
-            return;
-        }
+    /*
+     * Esperamos exactamente el tiempo
+     * que tarda la barra en expandirse.
+     */
 
-        if (!header.classList.contains("expanded")) {
-            return;
-        }
+    navbarTimer =
+        setTimeout(function() {
 
-        navbarElement.removeEventListener(
-            "transitionend",
-            finishHome
+            header.classList.add(
+                "links-visible"
+            );
+
+
+            /*
+             * Si volvimos al inicio,
+             * quitamos los estados temporales
+             * después de que aparecen los links.
+             */
+
+            if (fromHome) {
+
+                linksTimer =
+                    setTimeout(function() {
+
+                        header.classList.remove(
+                            "compact"
+                        );
+
+                        header.classList.remove(
+                            "expanded"
+                        );
+
+                        header.classList.remove(
+                            "links-visible"
+                        );
+
+                        menuToggle.textContent =
+                            "☰";
+
+                    }, LINKS_DURATION);
+
+            }
+
+        }, NAVBAR_DURATION);
+
+}
+
+
+/* ==============================
+   CERRAR NAVBAR
+============================== */
+
+function closeNavbar() {
+
+    clearTimeout(navbarTimer);
+    clearTimeout(linksTimer);
+
+
+    /*
+     * Los links desaparecen primero.
+     */
+
+    header.classList.remove(
+        "links-visible"
+    );
+
+
+    /*
+     * En el siguiente frame comienza
+     * la contracción real.
+     */
+
+    requestAnimationFrame(function() {
+
+        header.classList.add(
+            "compact"
         );
 
-        showNavbarLinks();
+        header.classList.remove(
+            "expanded"
+        );
 
-        requestAnimationFrame(function() {
+    });
 
-            header.classList.remove("compact");
-            header.classList.remove("expanded");
 
-            menuToggle.textContent = "☰";
+    menuToggle.textContent = "→";
 
-            navbarAnimating = false;
-
-        });
-    };
-
-    navbarElement.addEventListener(
-        "transitionend",
-        finishHome
-    );
 }
 
 
 /* ==============================
-   BOTÓN
+   CLICK DEL BOTÓN
 ============================== */
 
 menuToggle.addEventListener(
     "click",
     function() {
 
-        /* Menú móvil */
-        if (window.innerWidth <= 768) {
+        /*
+         * En móvil conservamos
+         * el menú hamburguesa.
+         */
 
-            navLinks.classList.toggle("active");
+        if (
+            window.innerWidth <= 768
+        ) {
 
-            if (navLinks.classList.contains("active")) {
+            navLinks.classList.toggle(
+                "active"
+            );
 
-                menuToggle.textContent = "✕";
+
+            if (
+                navLinks.classList.contains(
+                    "active"
+                )
+            ) {
+
+                menuToggle.textContent =
+                    "✕";
 
             } else {
 
-                menuToggle.textContent = "☰";
+                menuToggle.textContent =
+                    "☰";
 
             }
 
@@ -186,19 +185,38 @@ menuToggle.addEventListener(
         }
 
 
-        /* Desktop */
+        /*
+         * En desktop el botón solo funciona
+         * cuando la navbar está compacta.
+         */
 
-        if (header.classList.contains("compact")) {
+        if (
+            header.classList.contains(
+                "compact"
+            )
+        ) {
+
+            /*
+             * Si está abierta,
+             * la volvemos a cerrar.
+             */
 
             if (
-                header.classList.contains("expanded")
+                header.classList.contains(
+                    "expanded"
+                )
             ) {
 
-                closeCompactNavbar();
+                closeNavbar();
 
             } else {
 
-                openCompactNavbar();
+                /*
+                 * Si está cerrada,
+                 * la abrimos.
+                 */
+
+                openNavbar(false);
 
             }
 
@@ -216,10 +234,14 @@ const aboutSection =
     document.querySelector(".about");
 
 const aboutImage =
-    document.querySelector(".about-image img");
+    document.querySelector(
+        ".about-image img"
+    );
 
 const aboutContent =
-    document.querySelector(".about-content");
+    document.querySelector(
+        ".about-content"
+    );
 
 
 const aboutObserver =
@@ -229,11 +251,17 @@ const aboutObserver =
 
             entries.forEach(function(entry) {
 
-                if (entry.isIntersecting) {
+                if (
+                    entry.isIntersecting
+                ) {
 
-                    aboutImage.classList.add("show");
+                    aboutImage.classList.add(
+                        "show"
+                    );
 
-                    aboutContent.classList.add("show");
+                    aboutContent.classList.add(
+                        "show"
+                    );
 
                     aboutObserver.unobserve(
                         aboutSection
@@ -252,7 +280,9 @@ const aboutObserver =
     );
 
 
-aboutObserver.observe(aboutSection);
+aboutObserver.observe(
+    aboutSection
+);
 
 
 /* ==============================
@@ -260,10 +290,14 @@ aboutObserver.observe(aboutSection);
 ============================== */
 
 const contactForm =
-    document.querySelector(".contact-form");
+    document.querySelector(
+        ".contact-form"
+    );
 
 const formMessage =
-    document.querySelector(".form-message");
+    document.querySelector(
+        ".form-message"
+    );
 
 
 contactForm.addEventListener(
@@ -272,14 +306,26 @@ contactForm.addEventListener(
 
         event.preventDefault();
 
+
         const name =
-            document.querySelector("#name").value.trim();
+            document
+                .querySelector("#name")
+                .value
+                .trim();
+
 
         const email =
-            document.querySelector("#email").value.trim();
+            document
+                .querySelector("#email")
+                .value
+                .trim();
+
 
         const message =
-            document.querySelector("#message").value.trim();
+            document
+                .querySelector("#message")
+                .value
+                .trim();
 
 
         if (
@@ -308,7 +354,9 @@ contactForm.addEventListener(
 ============================== */
 
 const scrollIndicator =
-    document.querySelector(".scroll-indicator");
+    document.querySelector(
+        ".scroll-indicator"
+    );
 
 
 const heroObserver =
@@ -318,7 +366,9 @@ const heroObserver =
 
             entries.forEach(function(entry) {
 
-                if (entry.isIntersecting) {
+                if (
+                    entry.isIntersecting
+                ) {
 
                     scrollIndicator.classList.remove(
                         "hide"
@@ -343,7 +393,9 @@ const heroObserver =
     );
 
 
-heroObserver.observe(heroSection);
+heroObserver.observe(
+    heroSection
+);
 
 
 /* ==============================
@@ -357,14 +409,28 @@ const navbarObserver =
 
             entries.forEach(function(entry) {
 
-                /* Móvil */
+                clearTimeout(navbarTimer);
+                clearTimeout(linksTimer);
 
-                if (window.innerWidth <= 768) {
 
-                    header.classList.remove("compact");
-                    header.classList.remove("expanded");
+                /*
+                 * En móvil dejamos la navbar
+                 * completamente normal.
+                 */
 
-                    navLinks.classList.remove(
+                if (
+                    window.innerWidth <= 768
+                ) {
+
+                    header.classList.remove(
+                        "compact"
+                    );
+
+                    header.classList.remove(
+                        "expanded"
+                    );
+
+                    header.classList.remove(
                         "links-visible"
                     );
 
@@ -376,20 +442,23 @@ const navbarObserver =
                    VOLVEMOS AL HERO
                 ============================== */
 
-                if (entry.isIntersecting) {
+                if (
+                    entry.isIntersecting
+                ) {
+
+                    /*
+                     * Si estaba compacta,
+                     * usamos EXACTAMENTE la misma
+                     * función que usa la flecha.
+                     */
 
                     if (
-                        header.classList.contains("compact") &&
-                        !header.classList.contains("expanded")
+                        header.classList.contains(
+                            "compact"
+                        )
                     ) {
 
-                        openNavbarAtHome();
-
-                    } else if (
-                        !header.classList.contains("compact")
-                    ) {
-
-                        showNavbarLinks();
+                        openNavbar(true);
 
                     }
 
@@ -401,15 +470,7 @@ const navbarObserver =
                    SALIMOS DEL HERO
                 ============================== */
 
-                clearTimeout(navbarTimer);
-
-                hideNavbarLinks();
-
-                header.classList.remove("expanded");
-
-                header.classList.add("compact");
-
-                menuToggle.textContent = "→";
+                closeNavbar();
 
             });
 
@@ -422,7 +483,9 @@ const navbarObserver =
     );
 
 
-navbarObserver.observe(heroSection);
+navbarObserver.observe(
+    heroSection
+);
 
 
 /* ==============================
@@ -430,7 +493,9 @@ navbarObserver.observe(heroSection);
 ============================== */
 
 const particleContainer =
-    document.querySelector(".hero-particles");
+    document.querySelector(
+        ".hero-particles"
+    );
 
 
 if (particleContainer) {
@@ -438,10 +503,6 @@ if (particleContainer) {
     const isMobile =
         window.innerWidth <= 768;
 
-
-    /* ==============================
-       CANTIDAD
-    ============================== */
 
     const particleCount =
         isMobile
@@ -463,14 +524,19 @@ if (particleContainer) {
     ) {
 
         const particle =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
+
 
         particle.classList.add(
             "hero-particle"
         );
 
 
-        /* Posición */
+        /* ==============================
+           POSICIÓN
+        ============================== */
 
         const xPercent =
             Math.random() * 100;
@@ -484,17 +550,21 @@ if (particleContainer) {
             `${xPercent}%`
         );
 
+
         particle.style.setProperty(
             "--y",
             `${yPercent}%`
         );
 
 
-        /* Tamaño */
+        /* ==============================
+           TAMAÑO
+        ============================== */
 
         const size =
             (
-                Math.random() * 1.1 + 0.6
+                Math.random() * 1.1 +
+                0.6
             ).toFixed(2);
 
 
@@ -504,16 +574,21 @@ if (particleContainer) {
         );
 
 
-        /* Movimiento */
+        /* ==============================
+           MOVIMIENTO
+        ============================== */
 
         const moveX =
             (
-                (Math.random() - 0.5) * 140
+                (Math.random() - 0.5) *
+                140
             ).toFixed(0);
+
 
         const moveY =
             (
-                (Math.random() - 0.5) * 140
+                (Math.random() - 0.5) *
+                140
             ).toFixed(0);
 
 
@@ -522,17 +597,21 @@ if (particleContainer) {
             `${moveX}px`
         );
 
+
         particle.style.setProperty(
             "--move-y",
             `${moveY}px`
         );
 
 
-        /* Velocidad */
+        /* ==============================
+           VELOCIDAD
+        ============================== */
 
         const duration =
             (
-                Math.random() * 18 + 18
+                Math.random() * 18 +
+                18
             ).toFixed(1);
 
 
@@ -542,7 +621,9 @@ if (particleContainer) {
         );
 
 
-        /* Retraso */
+        /* ==============================
+           RETRASO
+        ============================== */
 
         const delay =
             (
@@ -556,11 +637,14 @@ if (particleContainer) {
         );
 
 
-        /* Opacidad */
+        /* ==============================
+           OPACIDAD
+        ============================== */
 
         const opacity =
             (
-                Math.random() * 0.3 + 0.15
+                Math.random() * 0.3 +
+                0.15
             ).toFixed(2);
 
 
@@ -570,7 +654,9 @@ if (particleContainer) {
         );
 
 
-        /* Desenfoque */
+        /* ==============================
+           DESENFOQUE
+        ============================== */
 
         const blur =
             (
@@ -584,32 +670,47 @@ if (particleContainer) {
         );
 
 
+        /* ==============================
+           AGREGAR PARTÍCULA
+        ============================== */
+
         particleContainer.appendChild(
             particle
         );
 
 
-        /* Datos */
+        /* ==============================
+           DATOS
+        ============================== */
 
         particleData.push({
 
-            element: particle,
+            element:
+                particle,
 
-            xPercent: xPercent,
+            xPercent:
+                xPercent,
 
-            yPercent: yPercent,
+            yPercent:
+                yPercent,
 
-            baseX: 0,
+            baseX:
+                0,
 
-            baseY: 0,
+            baseY:
+                0,
 
-            x: 0,
+            x:
+                0,
 
-            y: 0,
+            y:
+                0,
 
-            targetX: 0,
+            targetX:
+                0,
 
-            targetY: 0
+            targetY:
+                0
 
         });
 
@@ -634,12 +735,15 @@ if (particleContainer) {
 
                 data.baseX =
                     (
-                        data.xPercent / 100
+                        data.xPercent /
+                        100
                     ) * width;
+
 
                 data.baseY =
                     (
-                        data.yPercent / 100
+                        data.yPercent /
+                        100
                     ) * height;
 
             }
@@ -665,9 +769,11 @@ if (particleContainer) {
 
     let mouseY = 0;
 
-    let mouseInside = false;
+    let mouseInside =
+        false;
 
-    let animationRunning = false;
+    let animationRunning =
+        false;
 
 
     heroSection.addEventListener(
@@ -679,13 +785,17 @@ if (particleContainer) {
 
 
             mouseX =
-                event.clientX - rect.left;
+                event.clientX -
+                rect.left;
+
 
             mouseY =
-                event.clientY - rect.top;
+                event.clientY -
+                rect.top;
 
 
-            mouseInside = true;
+            mouseInside =
+                true;
 
 
             startParticleAnimation();
@@ -698,7 +808,9 @@ if (particleContainer) {
         "mouseleave",
         function() {
 
-            mouseInside = false;
+            mouseInside =
+                false;
+
 
             startParticleAnimation();
 
@@ -712,12 +824,15 @@ if (particleContainer) {
 
     function startParticleAnimation() {
 
-        if (animationRunning) {
+        if (
+            animationRunning
+        ) {
             return;
         }
 
 
-        animationRunning = true;
+        animationRunning =
+            true;
 
 
         requestAnimationFrame(
@@ -733,28 +848,38 @@ if (particleContainer) {
 
     function updateParticleRepulsion() {
 
-        let hasMovement = false;
+        let hasMovement =
+            false;
 
 
-        const radius = 160;
+        const radius =
+            160;
 
-        const strength = 25;
+
+        const strength =
+            25;
 
 
         particleData.forEach(
             function(data) {
 
-                if (mouseInside) {
+                if (
+                    mouseInside
+                ) {
 
                     const dx =
-                        data.baseX - mouseX;
+                        data.baseX -
+                        mouseX;
+
 
                     const dy =
-                        data.baseY - mouseY;
+                        data.baseY -
+                        mouseY;
 
 
                     const distanceSquared =
-                        dx * dx + dy * dy;
+                        dx * dx +
+                        dy * dy;
 
 
                     if (
@@ -768,27 +893,33 @@ if (particleContainer) {
                             );
 
 
-                        if (distance > 0) {
+                        if (
+                            distance > 0
+                        ) {
 
                             const force =
                                 1 -
-                                distance / radius;
+                                distance /
+                                radius;
 
 
                             const currentStrength =
-                                strength * force;
+                                strength *
+                                force;
 
 
                             data.targetX =
                                 (
-                                    dx / distance
+                                    dx /
+                                    distance
                                 ) *
                                 currentStrength;
 
 
                             data.targetY =
                                 (
-                                    dy / distance
+                                    dy /
+                                    distance
                                 ) *
                                 currentStrength;
 
@@ -796,58 +927,85 @@ if (particleContainer) {
 
                     } else {
 
-                        data.targetX = 0;
+                        data.targetX =
+                            0;
 
-                        data.targetY = 0;
+
+                        data.targetY =
+                            0;
 
                     }
 
                 } else {
 
-                    data.targetX = 0;
+                    data.targetX =
+                        0;
 
-                    data.targetY = 0;
+
+                    data.targetY =
+                        0;
 
                 }
 
 
-                /* Movimiento suave */
+                /* ==============================
+                   MOVIMIENTO SUAVE
+                ============================== */
 
                 data.x +=
                     (
                         data.targetX -
                         data.x
-                    ) *
-                    0.12;
+                    ) * 0.12;
 
 
                 data.y +=
                     (
                         data.targetY -
                         data.y
-                    ) *
-                    0.12;
+                    ) * 0.12;
 
 
-                /* Comprobar movimiento */
+                /* ==============================
+                   COMPROBAR MOVIMIENTO
+                ============================== */
 
                 if (
-                    Math.abs(data.x) > 0.01 ||
-                    Math.abs(data.y) > 0.01 ||
-                    Math.abs(data.targetX) > 0.01 ||
-                    Math.abs(data.targetY) > 0.01
+                    Math.abs(
+                        data.x
+                    ) > 0.01 ||
+
+                    Math.abs(
+                        data.y
+                    ) > 0.01 ||
+
+                    Math.abs(
+                        data.targetX
+                    ) > 0.01 ||
+
+                    Math.abs(
+                        data.targetY
+                    ) > 0.01
                 ) {
 
-                    hasMovement = true;
+                    hasMovement =
+                        true;
 
                 }
 
 
-                /* Aplicar movimiento */
+                /* ==============================
+                   APLICAR MOVIMIENTO
+                ============================== */
 
                 if (
-                    Math.abs(data.x) > 0.01 ||
-                    Math.abs(data.y) > 0.01
+                    Math.abs(
+                        data.x
+                    ) > 0.01 ||
+
+                    Math.abs(
+                        data.y
+                    ) > 0.01
                 ) {
 
                     data.element.style.translate =
@@ -864,7 +1022,13 @@ if (particleContainer) {
         );
 
 
-        if (hasMovement) {
+        /* ==============================
+           CONTINUAR O DETENER
+        ============================== */
+
+        if (
+            hasMovement
+        ) {
 
             requestAnimationFrame(
                 updateParticleRepulsion
@@ -872,7 +1036,8 @@ if (particleContainer) {
 
         } else {
 
-            animationRunning = false;
+            animationRunning =
+                false;
 
         }
 
