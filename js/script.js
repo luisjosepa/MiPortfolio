@@ -1044,3 +1044,432 @@ if (particleContainer) {
     }
 
 }
+
+/* ==============================
+   HERO CAROUSEL
+============================== */
+
+(function () {
+
+    const carousel = document.querySelector(".hero-carousel");
+    const slides = document.querySelectorAll(".hero-slide");
+    const controls = document.querySelectorAll(".hero-slide-control");
+
+    const previousButton =
+        document.querySelector(".hero-slider-arrow-prev");
+
+    const nextButton =
+        document.querySelector(".hero-slider-arrow-next");
+
+    const hero = document.querySelector(".hero");
+    const scrollIndicator = document.querySelector(".scroll-indicator");
+
+    if (!carousel || !slides.length || !controls.length) {
+        return;
+    }
+
+    let currentSlide = 0;
+    let autoplayTimer = null;
+
+    let isDragging = false;
+    let pointerStartX = 0;
+    let pointerCurrentX = 0;
+    let dragOffset = 0;
+    let activePointerId = null;
+
+    const AUTOPLAY_DELAY = 7000;
+    const SWIPE_THRESHOLD = 60;
+    const DRAG_START_THRESHOLD = 8;
+
+    function updateScrollIndicator(index) {
+
+        if (!scrollIndicator) {
+            return;
+        }
+
+        if (index === 0) {
+            scrollIndicator.classList.remove("hide");
+        } else {
+            scrollIndicator.classList.add("hide");
+        }
+
+    }
+
+    function showSlide(nextSlide, direction = 1) {
+
+        const normalizedSlide =
+            (nextSlide + slides.length) % slides.length;
+
+        if (normalizedSlide === currentSlide) {
+            return;
+        }
+
+        const oldSlide = slides[currentSlide];
+        const newSlide = slides[normalizedSlide];
+
+        oldSlide.style.transition = "";
+        oldSlide.style.transform = "";
+        newSlide.style.transition = "";
+        newSlide.style.transform = "";
+
+        oldSlide.classList.remove(
+            "is-active",
+            "is-leaving-left",
+            "is-leaving-right"
+        );
+
+        newSlide.classList.remove(
+            "is-active",
+            "is-leaving-left",
+            "is-leaving-right"
+        );
+
+        oldSlide.classList.add(
+            direction > 0
+                ? "is-leaving-left"
+                : "is-leaving-right"
+        );
+
+        newSlide.classList.add("is-active");
+
+        controls.forEach(function (control, index) {
+
+            const isActive =
+                index === normalizedSlide;
+
+            control.classList.toggle(
+                "is-active",
+                isActive
+            );
+
+            control.setAttribute(
+                "aria-selected",
+                isActive
+                    ? "true"
+                    : "false"
+            );
+
+        });
+
+        currentSlide = normalizedSlide;
+
+        updateScrollIndicator(
+            currentSlide
+        );
+
+        window.setTimeout(function () {
+
+            oldSlide.classList.remove(
+                "is-leaving-left",
+                "is-leaving-right"
+            );
+
+        }, 800);
+
+        restartAutoplay();
+
+    }
+
+    function nextSlide() {
+        showSlide(
+            currentSlide + 1,
+            1
+        );
+    }
+
+    function previousSlide() {
+        showSlide(
+            currentSlide - 1,
+            -1
+        );
+    }
+
+    function restartAutoplay() {
+
+        window.clearInterval(
+            autoplayTimer
+        );
+
+        if (isDragging) {
+            return;
+        }
+
+        autoplayTimer =
+            window.setInterval(
+                nextSlide,
+                AUTOPLAY_DELAY
+            );
+
+    }
+
+    controls.forEach(function (control, index) {
+
+        control.addEventListener(
+            "click",
+            function () {
+
+                showSlide(
+                    index,
+                    index > currentSlide
+                        ? 1
+                        : -1
+                );
+
+            }
+        );
+
+    });
+
+
+    /* ==============================
+       FLECHAS DEL CAROUSEL
+    ============================== */
+
+    if (previousButton) {
+
+        previousButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                previousSlide();
+
+            }
+        );
+
+    }
+
+
+    if (nextButton) {
+
+        nextButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                nextSlide();
+
+            }
+        );
+
+    }
+
+    if (hero) {
+
+        hero.addEventListener(
+            "mouseenter",
+            function () {
+
+                window.clearInterval(
+                    autoplayTimer
+                );
+
+            }
+        );
+
+        hero.addEventListener(
+            "mouseleave",
+            function () {
+
+                restartAutoplay();
+
+            }
+        );
+
+        /*
+         * ARRASRE CON MOUSE / TOUCH
+         *
+         * El mismo sistema sirve para desktop y móvil.
+         * En móvil, touch-action: pan-y permite seguir haciendo
+         * scroll vertical mientras el gesto horizontal controla
+         * el carousel.
+         */
+
+        hero.addEventListener(
+            "pointerdown",
+            function (event) {
+
+                /* No iniciar drag al pulsar botones o enlaces. */
+                if (
+                    event.target.closest &&
+                    event.target.closest("a, button, input, textarea, select")
+                ) {
+                    return;
+                }
+
+                if (event.pointerType === "mouse" && event.button !== 0) {
+                    return;
+                }
+
+                isDragging = true;
+                activePointerId = event.pointerId;
+                pointerStartX = event.clientX;
+                pointerCurrentX = event.clientX;
+                dragOffset = 0;
+
+                window.clearInterval(autoplayTimer);
+
+                hero.classList.add("is-dragging");
+
+                carousel.setPointerCapture(event.pointerId);
+
+            }
+        );
+
+        hero.addEventListener(
+            "pointermove",
+            function (event) {
+
+                if (
+                    !isDragging ||
+                    event.pointerId !== activePointerId
+                ) {
+                    return;
+                }
+
+                pointerCurrentX = event.clientX;
+                dragOffset =
+                    pointerCurrentX -
+                    pointerStartX;
+
+                if (
+                    Math.abs(dragOffset) >
+                    DRAG_START_THRESHOLD
+                ) {
+                    event.preventDefault();
+                }
+
+                const activeSlide =
+                    slides[currentSlide];
+
+                if (!activeSlide) {
+                    return;
+                }
+
+                const resistance =
+                    Math.min(1, Math.abs(dragOffset) / 260);
+
+                const softenedOffset =
+                    dragOffset * (1 - resistance * 0.18);
+
+                activeSlide.style.transform =
+                    `translate3d(${softenedOffset}px, 0, 0) scale(${1 - resistance * 0.012})`;
+
+            }
+        );
+
+        function finishDrag() {
+
+            if (!isDragging) {
+                return;
+            }
+
+            const distance =
+                pointerCurrentX -
+                pointerStartX;
+
+            const activeSlide =
+                slides[currentSlide];
+
+            isDragging = false;
+            activePointerId = null;
+
+            hero.classList.remove("is-dragging");
+
+            if (activeSlide) {
+                activeSlide.style.transition =
+                    "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)";
+                activeSlide.style.transform =
+                    "translate3d(0, 0, 0) scale(1)";
+            }
+
+            if (
+                Math.abs(distance) >=
+                SWIPE_THRESHOLD
+            ) {
+
+                window.setTimeout(function () {
+
+                    if (activeSlide) {
+                        activeSlide.style.transition = "";
+                        activeSlide.style.transform = "";
+                    }
+
+                    if (distance < 0) {
+                        nextSlide();
+                    } else {
+                        previousSlide();
+                    }
+
+                }, 20);
+
+                return;
+            }
+
+            window.setTimeout(function () {
+
+                if (activeSlide) {
+                    activeSlide.style.transition = "";
+                    activeSlide.style.transform = "";
+                }
+
+            }, 360);
+
+            restartAutoplay();
+
+        }
+
+        hero.addEventListener(
+            "pointerup",
+            function (event) {
+
+                if (event.pointerId === activePointerId) {
+                    finishDrag();
+                }
+
+            }
+        );
+
+        hero.addEventListener(
+            "pointercancel",
+            finishDrag
+        );
+
+        hero.addEventListener(
+            "lostpointercapture",
+            function () {
+
+                if (isDragging) {
+                    finishDrag();
+                }
+
+            }
+        );
+
+    }
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "ArrowRight") {
+                nextSlide();
+            }
+
+            if (event.key === "ArrowLeft") {
+                previousSlide();
+            }
+
+        }
+    );
+
+    updateScrollIndicator(
+        currentSlide
+    );
+
+    restartAutoplay();
+
+})();
+
