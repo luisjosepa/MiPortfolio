@@ -354,62 +354,183 @@
             id="about"
         >
 
-            <div class="about-image">
+            <!-- Navegador interno de la sección -->
+            <div
+                class="about-switcher"
+                role="tablist"
+                aria-label="Navegación de Sobre mí"
+            >
 
-                <img
-                    src="images/profile.jpg"
-                    alt="Foto de Luis"
+                <button
+                    type="button"
+                    class="about-switch active"
+                    id="about-tab"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="about-view"
+                    data-about-view="about"
                 >
+                    Sobre mí
+                </button>
+
+                <button
+                    type="button"
+                    class="about-switch"
+                    id="resume-tab"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="resume-view"
+                    data-about-view="resume"
+                >
+                    Resume
+                </button>
 
             </div>
 
 
-            <div class="about-content">
+            <div class="about-views">
 
-                <p class="section-subtitle">
-                    SOBRE MÍ
-                </p>
+                <!-- ==============================
+                     VISTA SOBRE MÍ
+                ============================== -->
+
+                <div
+                    class="about-view active"
+                    id="about-view"
+                    role="tabpanel"
+                    aria-labelledby="about-tab"
+                >
+
+                    <div class="about-image">
+
+                        <img
+                            class="about-portrait about-portrait-main"
+                            src="images/yo.png"
+                            alt="Retrato de Luis"
+                        >
+
+                        <img
+                            class="about-portrait about-portrait-back"
+                            src="images/yo.png"
+                            alt=""
+                            aria-hidden="true"
+                        >
+
+                    </div>
 
 
-                <h2>
-                    Diseñador gráfico y desarrollador web.
-                </h2>
+                    <div class="about-content">
+
+                        <p class="about-eyebrow">
+                            INTRO
+                        </p>
 
 
-                <p>
-                    Soy diseñador gráfico y desarrollador web en formación,
-                    apasionado por crear experiencias digitales modernas,
-                    funcionales y visualmente atractivas.
-                </p>
+                        <h2 class="about-hey">
+                            HEY!
+                        </h2>
 
 
-                <p>
-                    Actualmente estoy ampliando mis conocimientos en HTML,
-                    CSS y JavaScript para convertir ideas en sitios web reales.
-                </p>
+                        <div class="about-copy">
+
+                            <p>
+                                Soy <strong>[TU NOMBRE]</strong>, un diseñador gráfico y desarrollador web en formación, apasionado por crear experiencias visuales que comuniquen ideas con claridad y personalidad.
+                            </p>
+
+                            <p>
+                                [Escribe aquí un segundo párrafo sobre tu estilo, tu forma de trabajar y aquello que diferencia tu trabajo.]
+                            </p>
+
+                        </div>
 
 
-                <div class="about-skills">
+                        <div class="about-line"></div>
 
-                    <span>
-                        HTML
-                    </span>
 
-                    <span>
-                        CSS
-                    </span>
+                        <p class="about-quote">
+                            [Una frase corta que represente tu filosofía de diseño.]
+                        </p>
 
-                    <span>
-                        JavaScript
-                    </span>
+                    </div>
 
-                    <span>
-                        Photoshop
-                    </span>
+                </div>
 
-                    <span>
-                        Illustrator
-                    </span>
+
+                <!-- ==============================
+                     VISTA RESUME
+                ============================== -->
+
+                <div
+                    class="about-view resume-view"
+                    id="resume-view"
+                    role="tabpanel"
+                    aria-labelledby="resume-tab"
+                    aria-hidden="true"
+                >
+
+                    <div class="resume-intro">
+
+                        <p class="about-eyebrow">
+                            RESUME
+                        </p>
+
+                        <h2 class="resume-title">
+                            Resume.
+                        </h2>
+
+                        <div class="resume-skills">
+                            <p class="resume-label">
+                                SKILLS
+                            </p>
+
+                            <div class="resume-skill-list">
+                                <span>Photoshop</span>
+                                <span>Illustrator</span>
+                                <span>Canva</span>
+                                <span>Figma</span>
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="resume-experience">
+
+                        <p class="resume-label">
+                            EXPERIENCE
+                        </p>
+
+                        <article class="resume-item">
+                            <div class="resume-item-heading">
+                                <h3>[Empresa / Proyecto]</h3>
+                                <span>[202X — 202X]</span>
+                            </div>
+                            <p class="resume-role">[Cargo / Rol]</p>
+                            <p>[Descripción breve de tus responsabilidades y logros.]</p>
+                        </article>
+
+                        <article class="resume-item">
+                            <div class="resume-item-heading">
+                                <h3>[Empresa / Proyecto]</h3>
+                                <span>[202X — 202X]</span>
+                            </div>
+                            <p class="resume-role">[Cargo / Rol]</p>
+                            <p>[Descripción breve de tus responsabilidades y logros.]</p>
+                        </article>
+
+                        <article class="resume-item">
+                            <div class="resume-item-heading">
+                                <h3>[Empresa / Proyecto]</h3>
+                                <span>[202X — 202X]</span>
+                            </div>
+                            <p class="resume-role">[Cargo / Rol]</p>
+                            <p>[Descripción breve de tus responsabilidades y logros.]</p>
+                        </article>
+
+                    </div>
 
                 </div>
 

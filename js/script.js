@@ -286,6 +286,102 @@ aboutObserver.observe(
 
 
 /* ==============================
+   NAVEGADOR INTERNO: SOBRE MÍ / RESUME
+============================== */
+
+const aboutSwitches = document.querySelectorAll(".about-switch");
+const aboutViews = document.querySelectorAll(".about-view");
+
+function switchAboutView(viewName) {
+
+    aboutSwitches.forEach(function (button) {
+
+        const isActive =
+            button.dataset.aboutView === viewName;
+
+        button.classList.toggle(
+            "active",
+            isActive
+        );
+
+        button.setAttribute(
+            "aria-selected",
+            String(isActive)
+        );
+
+    });
+
+    aboutViews.forEach(function (view) {
+
+        const isActive =
+            view.id === `${viewName}-view`;
+
+        view.classList.toggle(
+            "active",
+            isActive
+        );
+
+        view.setAttribute(
+            "aria-hidden",
+            String(!isActive)
+        );
+
+    });
+
+}
+
+aboutSwitches.forEach(function (button) {
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            switchAboutView(
+                button.dataset.aboutView
+            );
+
+        }
+    );
+
+});
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key !== "ArrowLeft" &&
+            event.key !== "ArrowRight"
+        ) {
+            return;
+        }
+
+        const focusedButton =
+            document.activeElement;
+
+        if (
+            !focusedButton ||
+            !focusedButton.classList.contains(
+                "about-switch"
+            )
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        switchAboutView(
+            event.key === "ArrowLeft"
+                ? "about"
+                : "resume"
+        );
+
+    }
+);
+
+
+/* ==============================
    FORMULARIO
 ============================== */
 
