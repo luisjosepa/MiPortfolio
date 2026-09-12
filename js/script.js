@@ -1569,3 +1569,405 @@ if (particleContainer) {
 
 })();
 
+/* ============================================================
+   WHAT I DO — SKILLS ORBIT INTERACTION
+============================================================ */
+
+(function () {
+
+    const section =
+        document.querySelector(".what-i-do-section");
+
+    const system =
+        document.querySelector("[data-orbit-system]");
+
+    if (!section || !system) {
+        return;
+    }
+
+
+    const nodes =
+        Array.from(
+            system.querySelectorAll(".orbit-node")
+        );
+
+    const readout =
+        section.querySelector(".what-i-do-readout");
+
+    const readoutIndex =
+        section.querySelector("[data-orbit-index]");
+
+    const readoutLabel =
+        section.querySelector("[data-orbit-label]");
+
+    const readoutTitle =
+        section.querySelector("[data-orbit-title]");
+
+    const readoutDescription =
+        section.querySelector("[data-orbit-description]");
+
+    const readoutTags =
+        section.querySelector("[data-orbit-tags]");
+
+
+    const services = [
+        {
+            label: "VISUAL DESIGN",
+            title: "Visual identities with clarity and character.",
+            description:
+                "From social media systems to brand assets, I create visual languages that stay consistent, recognizable and purposeful.",
+            tags: [
+                "Photoshop",
+                "Illustrator",
+                "Figma",
+                "Canva"
+            ]
+        },
+
+        {
+            label: "WEB DESIGN",
+            title: "Interfaces built to look sharp and feel effortless.",
+            description:
+                "Responsive frontend experiences that balance hierarchy, interaction and clean visual systems across every screen.",
+            tags: [
+                "HTML5",
+                "CSS3",
+                "JavaScript",
+                "Responsive"
+            ]
+        },
+
+        {
+            label: "CONTENT & SOCIAL",
+            title: "Content designed to earn attention and stay consistent.",
+            description:
+                "Social media content, short-form video and community-focused systems designed around a clear visual identity.",
+            tags: [
+                "Social Media",
+                "Video",
+                "CapCut",
+                "Community"
+            ]
+        },
+
+        {
+            label: "DIGITAL EXPERIENCES",
+            title: "Ideas turned into interactive digital moments.",
+            description:
+                "I connect design, motion and frontend thinking to create interfaces and concepts that feel intentional, not templated.",
+            tags: [
+                "UI / UX",
+                "Interaction",
+                "Motion",
+                "Creative Tech"
+            ]
+        }
+    ];
+
+
+    let activeIndex = 0;
+
+
+    function renderReadout(index, animate) {
+
+        const service =
+            services[index];
+
+        if (!service) {
+            return;
+        }
+
+
+        const update =
+            function () {
+
+                readoutIndex.textContent =
+                    String(index + 1).padStart(2, "0");
+
+                readoutLabel.textContent =
+                    service.label;
+
+                readoutTitle.textContent =
+                    service.title;
+
+                readoutDescription.textContent =
+                    service.description;
+
+
+                readoutTags.replaceChildren();
+
+                service.tags.forEach(
+                    function (tag) {
+
+                        const tagElement =
+                            document.createElement("span");
+
+                        tagElement.textContent =
+                            tag;
+
+                        readoutTags.appendChild(
+                            tagElement
+                        );
+
+                    }
+                );
+
+            };
+
+
+        if (!animate || !readout) {
+            update();
+            return;
+        }
+
+
+        readout.classList.add("is-changing");
+
+        window.setTimeout(
+            function () {
+
+                update();
+
+                window.requestAnimationFrame(
+                    function () {
+
+                        readout.classList.remove(
+                            "is-changing"
+                        );
+
+                    }
+                );
+
+            },
+            170
+        );
+
+    }
+
+
+    function setActive(index, shouldFocus) {
+
+        const service =
+            services[index];
+
+        if (!service) {
+            return;
+        }
+
+        activeIndex = index;
+
+
+        nodes.forEach(
+            function (node, nodeIndex) {
+
+                const isActive =
+                    nodeIndex === index;
+
+                node.classList.toggle(
+                    "is-active",
+                    isActive
+                );
+
+                node.setAttribute(
+                    "aria-pressed",
+                    String(isActive)
+                );
+
+            }
+        );
+
+
+        renderReadout(
+            index,
+            true
+        );
+
+
+        if (shouldFocus) {
+
+            const activeNode =
+                nodes[index];
+
+            if (activeNode) {
+                activeNode.focus();
+            }
+
+        }
+
+    }
+
+
+    nodes.forEach(
+        function (node, index) {
+
+            node.addEventListener(
+                "mouseenter",
+                function () {
+
+                    if (
+                        window.matchMedia("(hover: hover)").matches
+                    ) {
+                        setActive(index, false);
+                    }
+
+                }
+            );
+
+
+            node.addEventListener(
+                "focus",
+                function () {
+                    setActive(index, false);
+                }
+            );
+
+
+            node.addEventListener(
+                "click",
+                function () {
+                    setActive(index, true);
+                }
+            );
+
+        }
+    );
+
+
+    system.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key !== "ArrowRight" &&
+                event.key !== "ArrowDown" &&
+                event.key !== "ArrowLeft" &&
+                event.key !== "ArrowUp"
+            ) {
+                return;
+            }
+
+            const nextIndex =
+                (
+                    activeIndex +
+                    (
+                        event.key === "ArrowRight" ||
+                        event.key === "ArrowDown"
+                            ? 1
+                            : -1
+                    ) +
+                    nodes.length
+                ) %
+                nodes.length;
+
+            event.preventDefault();
+
+            setActive(
+                nextIndex,
+                true
+            );
+
+        }
+    );
+
+
+    system.addEventListener(
+        "pointermove",
+        function (event) {
+
+            const rect =
+                system.getBoundingClientRect();
+
+            const x =
+                event.clientX -
+                rect.left;
+
+            const y =
+                event.clientY -
+                rect.top;
+
+            const centerX =
+                rect.width / 2;
+
+            const centerY =
+                rect.height / 2;
+
+            const moveX =
+                ((x - centerX) / centerX) * 12;
+
+            const moveY =
+                ((y - centerY) / centerY) * 12;
+
+            system.style.setProperty(
+                "--orbit-mx",
+                moveX.toFixed(2) + "px"
+            );
+
+            system.style.setProperty(
+                "--orbit-my",
+                moveY.toFixed(2) + "px"
+            );
+
+        }
+    );
+
+
+    system.addEventListener(
+        "pointerleave",
+        function () {
+
+            system.style.setProperty(
+                "--orbit-mx",
+                "0px"
+            );
+
+            system.style.setProperty(
+                "--orbit-my",
+                "0px"
+            );
+
+        }
+    );
+
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            section.classList.add(
+                                "in-view"
+                            );
+
+                            observer.unobserve(
+                                section
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.16
+            }
+        );
+
+
+    observer.observe(
+        section
+    );
+
+
+    renderReadout(
+        0,
+        false
+    );
+
+})();
