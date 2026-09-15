@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap"
+    >
+
     <link rel="stylesheet" href="css/style.css">
 
     <title>MiPortfolio</title>
@@ -131,12 +138,28 @@
                                     Ver mis proyectos
                                 </a>
 
-                                <a
+                            <a
                                     href="#contact"
-                                    class="hero-button hero-button-outline"
+                                    class="hero-button hero-button-outline hero-button-contact"
                                 >
                                     Contactarme
-                                </a>
+                                    <span class="hero-button-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                      <path
+                                    d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linejoin="round"
+                                     />
+                                     <path
+                                     d="m3 7 9 7 9-7"
+                                     stroke="currentColor"
+                                    stroke-width="1.8"
+                                     stroke-linejoin="round"
+            />
+                               </svg>
+                                 </span>
+                          </a>                                
 
                             </div>
 
@@ -166,12 +189,6 @@
                             <p class="hero-description">
                                 Creo sitios web modernos, funcionales y pensados para destacar.
                             </p>
-
-                            <div class="web-dev-stack" aria-label="Tecnologías">
-                                <span>HTML</span>
-                                <span>CSS</span>
-                                <span>JAVASCRIPT</span>
-                            </div>
 
                             <a
                                 href="#projects"
@@ -434,11 +451,11 @@
                         <div class="about-copy">
 
                             <p>
-                                Soy <strong>[TU NOMBRE]</strong>, un diseñador gráfico y desarrollador web en formación, apasionado por crear experiencias visuales que comuniquen ideas con claridad y personalidad.
+                                Me llamo <strong>Luis</strong>, soy diseñador gráfico y desarrollador web en formación, apasionado por crear experiencias visuales que comuniquen ideas con claridad y personalidad.
                             </p>
 
                             <p>
-                                [Escribe aquí un segundo párrafo sobre tu estilo, tu forma de trabajar y aquello que diferencia tu trabajo.]
+                                Mi estilo se define por el equilibrio entre lo estilizado y lo sobrio, siempre buscando una identidad visual clara y coherente.
                             </p>
 
                         </div>
@@ -448,7 +465,7 @@
 
 
                         <p class="about-quote">
-                            [Una frase corta que represente tu filosofía de diseño.]
+                            "Hasta que salgan canas haz que valga la pena"
                         </p>
 
                         <div class="about-contact-signature" aria-label="Datos de contacto">
@@ -669,31 +686,18 @@
              WHAT I DO
         ============================== -->
 
-        <section
-            class="what-i-do-section"
-            id="skills"
-        >
+        <section class="what-i-do-section" id="skills">
 
             <div class="what-i-do-shell">
 
                 <header class="what-i-do-header">
 
                     <div class="what-i-do-header-top">
-                        <p class="what-i-do-eyebrow">
-                            WHAT I DO
-                        </p>
-
-                        <span class="what-i-do-meta">
-                            SELECTED CAPABILITIES <b>04</b>
-                        </span>
                     </div>
 
                     <div class="what-i-do-heading-row">
 
-                        <h2>
-                            Design, content &amp;
-                            <span>digital experiences.</span>
-                        </h2>
+                        <h2>What I Do?</h2>
 
                         <p class="what-i-do-intro">
                             I combine visual design, web development and content
@@ -710,33 +714,15 @@
 
                     <div class="what-i-do-orbit-copy">
 
-                        <p class="what-i-do-orbit-kicker">
-                            CREATIVE SYSTEM
-                        </p>
-
-                        <p class="what-i-do-orbit-lead">
-                            A multidisciplinary toolkit built around
-                            <strong>design, code and content.</strong>
-                        </p>
-
-                        <div
-                            class="what-i-do-readout"
-                            aria-live="polite"
-                        >
+                        <div class="what-i-do-readout" aria-live="polite">
 
                             <div class="what-i-do-readout-top">
 
-                                <span
-                                    class="what-i-do-readout-index"
-                                    data-orbit-index
-                                >
+                                <span class="what-i-do-readout-index" data-orbit-index>
                                     01
                                 </span>
 
-                                <span
-                                    class="what-i-do-readout-label"
-                                    data-orbit-label
-                                >
+                                <span class="what-i-do-readout-label" data-orbit-label>
                                     VISUAL DESIGN
                                 </span>
 
@@ -752,10 +738,7 @@
                                 recognizable and purposeful.
                             </p>
 
-                            <div
-                                class="what-i-do-readout-tags"
-                                data-orbit-tags
-                            >
+                            <div class="what-i-do-readout-tags" data-orbit-tags>
                                 <span>Photoshop</span>
                                 <span>Illustrator</span>
                                 <span>Figma</span>
@@ -775,19 +758,26 @@
                     <div
                         class="what-i-do-orbit-system"
                         data-orbit-system
+                        tabindex="0"
                         aria-label="Interactive orbit of capabilities"
                     >
 
                         <div class="orbit-ambient"></div>
-
                         <div class="orbit-grid"></div>
 
                         <div class="orbit-ring orbit-ring-one"></div>
                         <div class="orbit-ring orbit-ring-two"></div>
                         <div class="orbit-ring orbit-ring-three"></div>
-                        <div class="orbit-ring orbit-ring-four"></div>
 
                         <div class="orbit-crosshair"></div>
+
+                        <div class="orbit-trace orbit-trace-one"></div>
+                        <div class="orbit-trace orbit-trace-two"></div>
+
+                        <div class="orbit-connector orbit-connector-visual"></div>
+                        <div class="orbit-connector orbit-connector-web"></div>
+                        <div class="orbit-connector orbit-connector-content"></div>
+                        <div class="orbit-connector orbit-connector-digital"></div>
 
                         <button
                             type="button"
@@ -798,6 +788,7 @@
                         >
                             <span class="orbit-node-core">01</span>
                             <span class="orbit-node-label">VISUAL</span>
+                            <span class="orbit-node-dot"></span>
                         </button>
 
                         <button
@@ -809,6 +800,7 @@
                         >
                             <span class="orbit-node-core">02</span>
                             <span class="orbit-node-label">WEB</span>
+                            <span class="orbit-node-dot"></span>
                         </button>
 
                         <button
@@ -820,6 +812,7 @@
                         >
                             <span class="orbit-node-core">03</span>
                             <span class="orbit-node-label">CONTENT</span>
+                            <span class="orbit-node-dot"></span>
                         </button>
 
                         <button
@@ -831,7 +824,9 @@
                         >
                             <span class="orbit-node-core">04</span>
                             <span class="orbit-node-label">DIGITAL</span>
+                            <span class="orbit-node-dot"></span>
                         </button>
+
 
                         <div class="orbit-core" aria-hidden="true">
 
@@ -839,13 +834,16 @@
                                 <span>LP</span>
                             </div>
 
-                            <strong>DESIGN</strong>
-                            <strong>BUILD</strong>
-                            <strong>CREATE</strong>
+                            <div class="orbit-core-title">
+                                <strong>DESIGN</strong>
+                                <strong>BUILD</strong>
+                                <strong>CREATE</strong>
+                            </div>
 
                             <small>LUIS PIÑA / CREATIVE DEVELOPER</small>
 
                         </div>
+
 
                         <div class="orbit-signal signal-one" aria-hidden="true"></div>
                         <div class="orbit-signal signal-two" aria-hidden="true"></div>
@@ -855,19 +853,6 @@
                     </div>
 
                 </div>
-
-
-                <footer class="what-i-do-footer">
-
-                    <span>
-                        DESIGN / DEVELOPMENT / CONTENT
-                    </span>
-
-                    <span>
-                        EXPLORE THE SYSTEM
-                    </span>
-
-                </footer>
 
             </div>
 
@@ -1155,7 +1140,6 @@
         </p>
 
     </footer>
-
 
 
     <!-- ==============================

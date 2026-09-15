@@ -739,7 +739,7 @@ if (particleContainer) {
 
         const opacity =
             (
-                Math.random() * 0.3 +
+                Math.random() * 0.5 +
                 0.15
             ).toFixed(2);
 
@@ -756,8 +756,8 @@ if (particleContainer) {
 
         const blur =
             (
-                Math.random() * 0.6
-            ).toFixed(1);
+                Math.random() * 0.35
+            ).toFixed(2);
 
 
         particle.style.setProperty(
@@ -1570,45 +1570,28 @@ if (particleContainer) {
 })();
 
 /* ============================================================
-   WHAT I DO — SKILLS ORBIT INTERACTION
+   WHAT I DO — SKILLS ORBIT INTERACTION V29
 ============================================================ */
 
 (function () {
 
-    const section =
-        document.querySelector(".what-i-do-section");
-
-    const system =
-        document.querySelector("[data-orbit-system]");
+    const section = document.querySelector(".what-i-do-section");
+    const system = document.querySelector("[data-orbit-system]");
 
     if (!section || !system) {
         return;
     }
 
+    const nodes = Array.from(
+        system.querySelectorAll(".orbit-node")
+    );
 
-    const nodes =
-        Array.from(
-            system.querySelectorAll(".orbit-node")
-        );
-
-    const readout =
-        section.querySelector(".what-i-do-readout");
-
-    const readoutIndex =
-        section.querySelector("[data-orbit-index]");
-
-    const readoutLabel =
-        section.querySelector("[data-orbit-label]");
-
-    const readoutTitle =
-        section.querySelector("[data-orbit-title]");
-
-    const readoutDescription =
-        section.querySelector("[data-orbit-description]");
-
-    const readoutTags =
-        section.querySelector("[data-orbit-tags]");
-
+    const readout = section.querySelector(".what-i-do-readout");
+    const readoutIndex = section.querySelector("[data-orbit-index]");
+    const readoutLabel = section.querySelector("[data-orbit-label]");
+    const readoutTitle = section.querySelector("[data-orbit-title]");
+    const readoutDescription = section.querySelector("[data-orbit-description]");
+    const readoutTags = section.querySelector("[data-orbit-tags]");
 
     const services = [
         {
@@ -1616,221 +1599,155 @@ if (particleContainer) {
             title: "Visual identities with clarity and character.",
             description:
                 "From social media systems to brand assets, I create visual languages that stay consistent, recognizable and purposeful.",
-            tags: [
-                "Photoshop",
-                "Illustrator",
-                "Figma",
-                "Canva"
-            ]
+            tags: ["Photoshop", "Illustrator", "Figma", "Canva"]
         },
-
         {
             label: "WEB DESIGN",
             title: "Interfaces built to look sharp and feel effortless.",
             description:
                 "Responsive frontend experiences that balance hierarchy, interaction and clean visual systems across every screen.",
-            tags: [
-                "HTML5",
-                "CSS3",
-                "JavaScript",
-                "Responsive"
-            ]
+            tags: ["HTML5", "CSS3", "JavaScript", "Responsive"]
         },
-
         {
             label: "CONTENT & SOCIAL",
             title: "Content designed to earn attention and stay consistent.",
             description:
                 "Social media content, short-form video and community-focused systems designed around a clear visual identity.",
-            tags: [
-                "Social Media",
-                "Video",
-                "CapCut",
-                "Community"
-            ]
+            tags: ["Social Media", "Video", "CapCut", "Community"]
         },
-
         {
             label: "DIGITAL EXPERIENCES",
             title: "Ideas turned into interactive digital moments.",
             description:
                 "I connect design, motion and frontend thinking to create interfaces and concepts that feel intentional, not templated.",
-            tags: [
-                "UI / UX",
-                "Interaction",
-                "Motion",
-                "Creative Tech"
-            ]
+            tags: ["UI / UX", "Interaction", "Motion", "Creative Tech"]
         }
     ];
 
-
     let activeIndex = 0;
+    let readoutTimer = null;
 
+    function renderReadout(index, animate = true) {
 
-    function renderReadout(index, animate) {
+        const service = services[index];
 
-        const service =
-            services[index];
-
-        if (!service) {
+        if (!service || !readout) {
             return;
         }
 
+        const update = function () {
 
-        const update =
-            function () {
+            readoutIndex.textContent =
+                String(index + 1).padStart(2, "0");
 
-                readoutIndex.textContent =
-                    String(index + 1).padStart(2, "0");
+            readoutLabel.textContent =
+                service.label;
 
-                readoutLabel.textContent =
-                    service.label;
+            readoutTitle.textContent =
+                service.title;
 
-                readoutTitle.textContent =
-                    service.title;
+            readoutDescription.textContent =
+                service.description;
 
-                readoutDescription.textContent =
-                    service.description;
+            readoutTags.replaceChildren();
 
+            service.tags.forEach(function (tag) {
 
-                readoutTags.replaceChildren();
+                const element =
+                    document.createElement("span");
 
-                service.tags.forEach(
-                    function (tag) {
+                element.textContent = tag;
 
-                        const tagElement =
-                            document.createElement("span");
+                readoutTags.appendChild(element);
 
-                        tagElement.textContent =
-                            tag;
+            });
 
-                        readoutTags.appendChild(
-                            tagElement
-                        );
+        };
 
-                    }
-                );
-
-            };
-
-
-        if (!animate || !readout) {
+        if (!animate) {
             update();
             return;
         }
 
+        window.clearTimeout(readoutTimer);
 
         readout.classList.add("is-changing");
 
-        window.setTimeout(
-            function () {
+        readoutTimer = window.setTimeout(function () {
 
-                update();
+            update();
 
-                window.requestAnimationFrame(
-                    function () {
+            window.requestAnimationFrame(function () {
+                readout.classList.remove("is-changing");
+            });
 
-                        readout.classList.remove(
-                            "is-changing"
-                        );
-
-                    }
-                );
-
-            },
-            170
-        );
-
+        }, 155);
     }
 
 
-    function setActive(index, shouldFocus) {
+    function setActive(index, shouldFocus = false) {
 
-        const service =
-            services[index];
-
-        if (!service) {
+        if (!services[index]) {
             return;
         }
 
         activeIndex = index;
 
+        nodes.forEach(function (node, nodeIndex) {
 
-        nodes.forEach(
-            function (node, nodeIndex) {
+            const isActive =
+                nodeIndex === index;
 
-                const isActive =
-                    nodeIndex === index;
+            node.classList.toggle(
+                "is-active",
+                isActive
+            );
 
-                node.classList.toggle(
-                    "is-active",
-                    isActive
-                );
+            node.setAttribute(
+                "aria-pressed",
+                String(isActive)
+            );
 
-                node.setAttribute(
-                    "aria-pressed",
-                    String(isActive)
-                );
+        });
 
-            }
-        );
+        renderReadout(index, true);
 
-
-        renderReadout(
-            index,
-            true
-        );
-
-
-        if (shouldFocus) {
-
-            const activeNode =
-                nodes[index];
-
-            if (activeNode) {
-                activeNode.focus();
-            }
-
+        if (shouldFocus && nodes[index]) {
+            nodes[index].focus();
         }
-
     }
 
 
-    nodes.forEach(
-        function (node, index) {
+    nodes.forEach(function (node, index) {
 
-            node.addEventListener(
-                "mouseenter",
-                function () {
+        node.addEventListener(
+            "mouseenter",
+            function () {
 
-                    if (
-                        window.matchMedia("(hover: hover)").matches
-                    ) {
-                        setActive(index, false);
-                    }
-
+                if (
+                    window.matchMedia("(hover: hover)").matches
+                ) {
+                    setActive(index);
                 }
-            );
 
+            }
+        );
 
-            node.addEventListener(
-                "focus",
-                function () {
-                    setActive(index, false);
-                }
-            );
+        node.addEventListener(
+            "focus",
+            function () {
+                setActive(index);
+            }
+        );
 
+        node.addEventListener(
+            "click",
+            function () {
+                setActive(index, true);
+            }
+        );
 
-            node.addEventListener(
-                "click",
-                function () {
-                    setActive(index, true);
-                }
-            );
-
-        }
-    );
+    });
 
 
     system.addEventListener(
@@ -1846,25 +1763,22 @@ if (particleContainer) {
                 return;
             }
 
+            const direction =
+                event.key === "ArrowRight" ||
+                event.key === "ArrowDown"
+                    ? 1
+                    : -1;
+
             const nextIndex =
                 (
                     activeIndex +
-                    (
-                        event.key === "ArrowRight" ||
-                        event.key === "ArrowDown"
-                            ? 1
-                            : -1
-                    ) +
+                    direction +
                     nodes.length
-                ) %
-                nodes.length;
+                ) % nodes.length;
 
             event.preventDefault();
 
-            setActive(
-                nextIndex,
-                true
-            );
+            setActive(nextIndex, true);
 
         }
     );
@@ -1874,16 +1788,21 @@ if (particleContainer) {
         "pointermove",
         function (event) {
 
+            if (
+                event.pointerType === "touch" ||
+                window.matchMedia("(hover: none)").matches
+            ) {
+                return;
+            }
+
             const rect =
                 system.getBoundingClientRect();
 
             const x =
-                event.clientX -
-                rect.left;
+                event.clientX - rect.left;
 
             const y =
-                event.clientY -
-                rect.top;
+                event.clientY - rect.top;
 
             const centerX =
                 rect.width / 2;
@@ -1892,10 +1811,10 @@ if (particleContainer) {
                 rect.height / 2;
 
             const moveX =
-                ((x - centerX) / centerX) * 12;
+                ((x - centerX) / centerX) * 9;
 
             const moveY =
-                ((y - centerY) / centerY) * 12;
+                ((y - centerY) / centerY) * 9;
 
             system.style.setProperty(
                 "--orbit-mx",
@@ -1933,41 +1852,26 @@ if (particleContainer) {
         new IntersectionObserver(
             function (entries) {
 
-                entries.forEach(
-                    function (entry) {
+                entries.forEach(function (entry) {
 
-                        if (
-                            entry.isIntersecting
-                        ) {
+                    if (entry.isIntersecting) {
 
-                            section.classList.add(
-                                "in-view"
-                            );
+                        section.classList.add("in-view");
 
-                            observer.unobserve(
-                                section
-                            );
-
-                        }
+                        observer.unobserve(section);
 
                     }
-                );
+
+                });
 
             },
             {
-                threshold: 0.16
+                threshold: 0.14
             }
         );
 
+    observer.observe(section);
 
-    observer.observe(
-        section
-    );
-
-
-    renderReadout(
-        0,
-        false
-    );
+    renderReadout(0, false);
 
 })();
